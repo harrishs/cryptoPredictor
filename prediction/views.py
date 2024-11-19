@@ -1,9 +1,11 @@
 from django.shortcuts import render
 from django.http import JsonResponse
+from .utils import fetch_crypto_price
 
 #Get realtime crypto data
 def fetch_data(request):
-    return JsonResponse({"message": "Will get real time data"})
+    crypto_data = fetch_crypto_price(["bitcoin", "ethereum"])
+    return JsonResponse(crypto_data)
 
 #Create predictions
 def predict(request):
