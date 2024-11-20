@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from django.http import JsonResponse
-from .utils import fetch_crypto_price
+from .utils import fetch_crypto_price, fetch_historical_data
 
 #Get realtime crypto data
 def fetch_data(request):
@@ -13,7 +13,12 @@ def predict(request):
 
 #Get historical crypto data
 def historical(request):
-    return JsonResponse({"message": "Will get historical data"})
+    crypto_id = request.GET.get('crypto', 'bitcoin')
+    from_date = request.GET.get('from', '2024-01-01')
+    to_date = request.GET.get('to', '2024-01-07')
+
+    historical_data = fetch_historical_data(crypto_id, from_date, to_date)
+    return JsonResponse(historical_data)
 
 #Create analysis
 def sentiment(request):
