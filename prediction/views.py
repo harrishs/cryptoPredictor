@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from django.http import JsonResponse
-from .utils import fetch_crypto_price, fetch_historical_data
+from .utils import fetch_crypto_price, fetch_historical_data, fetch_santiment_data
 
 #Get realtime crypto data
 def fetch_data(request):
@@ -22,7 +22,13 @@ def historical(request):
 
 #Create analysis
 def sentiment(request):
-    return JsonResponse({"message": "Will create analysis"})
+    crypto_id = request.GET.get('crypto', 'bitcoin')
+    from_date = request.GET.get('from', '2024-01-01')
+    to_date = request.GET.get('to', '2024-01-07')
+    metric = request.GET.get('metric', 'social_volume_total')
+
+    sentiment_data = fetch_santiment_data(crypto_id, from_date, to_date, metric)
+    return JsonResponse(sentiment_data)
 
 #Schedule tasks
 def schedule_task(request):
