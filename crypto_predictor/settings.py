@@ -17,6 +17,11 @@ from decouple import config
 COINGECKO_KEY = config('COINGECKO_KEY')
 SAN_KEY = config('SAN_KEY')
 
+# Celery Configuration
+CELERY_BROKER_URL = 'redis://localhost:6379/0'  # Redis broker
+CELERY_ACCEPT_CONTENT = ['json']  # Content types to accept
+CELERY_TASK_SERIALIZER = 'json'   # Use JSON to serialize tasks
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -42,7 +47,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'prediction'
+    'prediction',
+    'django_celery_beat'
 ]
 
 MIDDLEWARE = [
