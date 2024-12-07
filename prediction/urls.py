@@ -6,5 +6,6 @@ urlpatterns = [
     path('predict/', views.predict, name='predict'),
     path('historical/', views.historical, name='historical'),
     path('sentiment/', views.sentiment, name='sentiment'),
+    path('stored_sentiment/', views.stored_sentiment, name='stored_sentiment'),
     path('schedule/', views.schedule_task, name='schedule')
 ]
